@@ -37,7 +37,10 @@ __version__ = "0.1.0"
 REQUEST_TIMEOUT = 30
 
 def get_api_key():
-    """Load API key from key.txt file or return None."""
+    """Load API key from CIVITAI_API_KEY env var or key.txt file, or return None."""
+    env_key = os.environ.get("CIVITAI_API_KEY", "").strip()
+    if env_key:
+        return env_key
     if os.path.exists("key.txt"):
         try:
             with open("key.txt", "r") as f:
